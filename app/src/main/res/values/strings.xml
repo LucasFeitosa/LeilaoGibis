@@ -5,5 +5,7 @@
     <string name="tvNome">Nome:</string>
     <string name="action_settings">Settings</string>
     <string name="btnSalvar">Salvar</string>
+    <string name="tvEmail">Email:</string>
+    <string name="btnCadastroUser">Cadastrar Usuario</string>
 
 </resources>

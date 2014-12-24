@@ -4,16 +4,80 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+
+import com.example.lucas.leilaogibis.modelo.dao.GibiDAO;
+import com.example.lucas.leilaogibis.modelo.entidade.Gibi;
+import com.example.lucas.leilaogibis.view.helper.CadastroGibiHelper;
+
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private ListView lvGibi;
+
+    private List<Gibi> listaGibis;
+    private ArrayAdapter<Gibi> adapter;
+    private int adapterlayout = android.R.layout.simple_list_item_1;
+
+    private final String TAG = "CADASTRO_GIBI";
+    private final String GIBI_KEY = "LISTA";
+
+    private Button btnSalvar,  btnCadastroUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        lvGibi = (ListView) findViewById(R.id.lvGibi);
+
+        registerForContextMenu(lvGibi);
+
+
+
+        final CadastroGibiHelper helper = new CadastroGibiHelper(this);
+
+        btnSalvar = (Button) findViewById(R.id.btnSalvarGibi);
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Gibi gibi = helper.getGibi();
+
+                GibiDAO dao = new GibiDAO(MainActivity.this);
+
+
+                    dao.cadastrarGibi(gibi);
+
+
+            }
+        });
+
     }
 
+    private void carregarLista(){
+
+        GibiDAO dao = new GibiDAO(this);
+
+        this.listaGibis = dao.listar();
+
+        this.adapter = new ArrayAdapter<Gibi>(this, adapterlayout,listaGibis);
+
+        this.lvGibi.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        carregarLista();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

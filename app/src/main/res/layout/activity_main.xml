@@ -5,18 +5,28 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tvNomeGibi"
         android:text="@string/tvNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
+        android:id="@+id/edNomeGibi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <Button
+        android:id="@+id/btnSalvarGibi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnSalvar"/>
+    <Button
+        android:id="@+id/btnCadastrarUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCadastroUser"/>
 
     <ListView
+        android:id="@+id/lvGibi"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         </ListView>
