@@ -1,5 +1,6 @@
 package com.example.lucas.leilaogibis.view.helper;
 
+import android.util.Log;
 import android.widget.EditText;
 
 import com.example.lucas.leilaogibis.MainActivity;
@@ -18,6 +19,8 @@ public class CadastroGibiHelper {
 
         edNome = (EditText) activity.findViewById(R.id.edNomeGibi);
 
+        Log.i("Nome gibi:", edNome.getText().toString());
+
         gibi = new Gibi();
 
 
@@ -26,13 +29,17 @@ public class CadastroGibiHelper {
 
 
     public Gibi getGibi() {
+
+        gibi.setNome(edNome.getText().toString());
+
         return gibi;
     }
 
     public void setGibi(Gibi gibi) {
 
-        edNome.setText(gibi.getNome());
 
+
+        edNome.setText(gibi.getNome());
 
         this.gibi = gibi;
     }

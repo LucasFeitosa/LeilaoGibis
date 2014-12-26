@@ -8,6 +8,11 @@ public class Gibi {
     private double id;
     private String nome;
 
+    @Override
+    public String toString() {
+        return nome;
+    }
+
     public double getId() {
         return id;
     }

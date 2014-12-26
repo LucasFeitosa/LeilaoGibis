@@ -1,7 +1,9 @@
 package com.example.lucas.leilaogibis;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +31,14 @@ public class MainActivity extends ActionBarActivity {
 
     private Button btnSalvar,  btnCadastroUser;
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        carregarLista();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +50,19 @@ public class MainActivity extends ActionBarActivity {
 
 
 
-        final CadastroGibiHelper helper = new CadastroGibiHelper(this);
+
 
         btnSalvar = (Button) findViewById(R.id.btnSalvarGibi);
+        btnCadastroUser = (Button) findViewById(R.id.btnCadastrarUser);
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CadastroGibiHelper helper = new CadastroGibiHelper(MainActivity.this);
 
                 Gibi gibi = helper.getGibi();
+
+                Log.i("Gibi: ", gibi.getNome());
 
                 GibiDAO dao = new GibiDAO(MainActivity.this);
 
@@ -56,6 +70,22 @@ public class MainActivity extends ActionBarActivity {
                     dao.cadastrarGibi(gibi);
 
 
+                carregarLista();
+
+
+            }
+        });
+
+        btnCadastroUser.setOnClickListener(new  View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+
+                intent.setClass(MainActivity.this, CadastroActivity.class);
+
+
+                startActivity(intent);
             }
         });
 
@@ -67,17 +97,14 @@ public class MainActivity extends ActionBarActivity {
 
         this.listaGibis = dao.listar();
 
-        this.adapter = new ArrayAdapter<Gibi>(this, adapterlayout,listaGibis);
+        Log.i("GIBI: ", listaGibis.toString());
+
+        this.adapter = new ArrayAdapter<Gibi>(this, adapterlayout, listaGibis);
 
         this.lvGibi.setAdapter(adapter);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-        carregarLista();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

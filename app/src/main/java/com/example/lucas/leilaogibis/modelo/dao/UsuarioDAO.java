@@ -48,6 +48,9 @@ public class UsuarioDAO extends SQLiteOpenHelper{
         values.put("nome", usuario.getNome());
         values.put("email", usuario.getEmail());
 
+        Log.i("Usuario cadastrado:", usuario.getNome());
+        Log.i("Email cadastrado:", usuario.getEmail());
+
     }
 
     @Override

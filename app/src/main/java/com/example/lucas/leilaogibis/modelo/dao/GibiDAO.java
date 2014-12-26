@@ -10,6 +10,7 @@ import android.util.Log;
 import com.example.lucas.leilaogibis.modelo.entidade.Gibi;
 import com.example.lucas.leilaogibis.modelo.entidade.Usuario;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,20 +59,22 @@ public class GibiDAO extends SQLiteOpenHelper {
 
     public List<Gibi> listar(){
 
-        List<Gibi> lista = new ArrayList<Gibi>();
+        ArrayList<Gibi> lista = new ArrayList<Gibi>();
 
         String sql = "Select * from " +  TABELA + " order by nome";
 
-        Cursor cursor = getReadableDatabase().rawQuery(sql,null);
+        Cursor cursor = getReadableDatabase().rawQuery(sql, null);
 
         try{
             while(cursor.moveToNext()){
                 Gibi gibi = new Gibi();
 
                 gibi.setId(cursor.getLong(0));
+
                 gibi.setNome(cursor.getString(1));
 
                 lista.add(gibi);
+                Log.i("ATENÇÃO: ", lista.toString());
             }
         } finally {
             cursor.close();
